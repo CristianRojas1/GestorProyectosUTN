@@ -34,28 +34,7 @@ public class TareaDAO {
         }
     }
 
-    public boolean actualizar(Tarea tarea) {
-        String sql = "UPDATE Tareas SET IdProyecto = ?, Titulo = ?, Descripcion = ?, FechaInicio = ?, FechaFin = ?, Estado = ?, PorcentajeAvance = ? WHERE Id = ?";
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, tarea.getIdProyecto());
-            ps.setString(2, tarea.getTitulo());
-            ps.setString(3, tarea.getDescripcion());
-            ps.setDate(4, new java.sql.Date(tarea.getFechaInicio().getTime()));
-            if (tarea.getFechaFin() != null) {
-                ps.setDate(5, new java.sql.Date(tarea.getFechaFin().getTime()));
-            } else {
-                ps.setNull(5, Types.DATE);
-            }
-            ps.setString(6, tarea.getEstado());
-            ps.setInt(7, tarea.getPorcentajeAvance());
-            ps.setInt(8, tarea.getId());
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     public boolean eliminar(int id) {
         String sql = "DELETE FROM Tareas WHERE Id = ?";
